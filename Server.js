@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.use("/",userRoutes)
 
-app.listen(process.env.PORT || 5000 , () => console.log(`App is listening on PORT ${process.env.PORT}`))
+app.listen(process.env.PORT || 5000 , () => console.log(`App is listening on PORT http://localhost:${process.env.PORT}`))
 
 mongoose.connect(process.env.CONNECTION_URL)
 mongoose.set('strictQuery', true);

@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.use("/",userRoutes)
 
-app.listen(5000 , () => console.log("App is listening on PORT 5000"))
+app.listen(process.env.PORT || 5000 , () => console.log(`App is listening on PORT ${process.env.PORT}`))
 
 mongoose.connect(process.env.CONNECTION_URL)
 mongoose.set('strictQuery', true);

@@ -1,7 +1,7 @@
 import User from "../Model/userSchema.js"
 
 export const registerUser = async (req, res) => {
-    const { email, password, name,  mobile } = req.body
+    const { email, password, name,  mobile } = req.body.Data
     if (!email || !password || !name || !mobile) {
         res.json({ alert: "All fields are required" })
     } else {
@@ -23,7 +23,7 @@ export const registerUser = async (req, res) => {
 }
 
 export const loginUser = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body.Data
     if (!email || !password) {
         res.json({ alert: "All fields are required" })
     } else {
@@ -42,7 +42,7 @@ export const loginUser = async (req, res) => {
 }
 
 export const forgotPassword = async(req,res) => {
-    const {email,mobile} = req.body
+    const {email,mobile} = req.body.Data
     const findUser = await User.findOne({ $or: [{ email: email }, { mobile: mobile }] })
 // if(!findUser || findUser.mobile !== mobile){
 //     res.json({alert : "Invalid email address or security question answer."})
@@ -53,7 +53,7 @@ res.json(findUser)
 }
 
 export const updateProfile = async(req,res) => {
-    const {_id,name,image,mobile} = req.body
+    const {_id,name,image,mobile} = req.body.Data
     if(!_id){
         res.json({alert : "Please login to contiue"})
     }else{
@@ -75,7 +75,7 @@ export const updateProfile = async(req,res) => {
     }
 
     export const deleteUser = async(req,res) => {
-        const {_id} = req.body
+        const {_id} = req.body.Data
         const user = await User.findByIdAndDelete(_id)
         if(user){
             res.json({success : "User deleted"})
@@ -85,7 +85,7 @@ export const updateProfile = async(req,res) => {
     }
 
 export const addTodo = async(req,res) => {
-    const {name,id} = req.body
+    const {name,id} = req.body.Data
    if(!name || !id) {
     res.json({alert : "please enter all fields"})
    }else{
@@ -105,7 +105,7 @@ export const addTodo = async(req,res) => {
 }
 
 export const removeTodo = async(req,res) => {
-    const {_id,id} = req.body
+    const {_id,id} = req.body.Data
     const findUser = await User.findById(id)
     if (findUser) {
         const todo = await findUser.todo.filter(item => item._id != _id)

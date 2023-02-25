@@ -1,3 +1,4 @@
+import { json } from "express"
 import User from "../Model/userSchema.js"
 
 export const registerUser = async (req, res) => {
@@ -43,18 +44,42 @@ export const loginUser = async (req, res) => {
 
 export const forgotPassword = async(req,res) => {
     const {email,mobile} = req.body.Data
-    const findUser = await User.findOne({ $or: [{ email: email }, { mobile: mobile }] })
-// if(!findUser || findUser.mobile !== mobile){
-//     res.json({alert : "Invalid email address or security question answer."})
-// }else{
-    
-// }
-res.json(findUser)
+    const findUser = await User.findOne({email:email})
+if(!findUser){
+    res.json({alert : "Invalid input"})
+}else{
+   const checkAuth =   findUser.mobile == mobile
+   if(checkAuth){
+    res.json({success:findUser})
+   }else{
+    res.json({alert:"invalid user"})
+   }
+}
+}
+
+export const updatePassword = async(req,res) => {
+    const {_id,password} = req.body.Data
+    if(!_id){
+        res.json({alert : "Invalid user"})
+    }else{
+        if(!password){
+            res.json({alert : "Please add new password"})
+        }else{
+         const findUser = await User.findById(_id)
+     if(findUser){
+        findUser.password = password
+            findUser.save()
+        res.json({success : "Password updated" , user:findUser})
+        }else{
+        res.json({error : "Can't update password"})
+     }
+     }
+        }
 }
 
 export const getUser = async(req,res) => {
     const {id} = req.body.Data
-    const findUser = await User.findById(id)
+    const findUser = await User.findById("63f9ba50248c91eb70448963")
     if(!findUser){
         res.json({alert : "Please Login Again"})
     }else{

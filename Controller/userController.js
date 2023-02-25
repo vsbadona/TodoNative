@@ -31,7 +31,7 @@ export const loginUser = async (req, res) => {
         if (findUser) {
             const checkPassword = await findUser.password == password
            if(checkPassword){
-            res.json({success : "Login success"},{user:findUser})
+            res.json({success : "Login success",user:findUser})
            }else{
             res.json({alert : "Invalid! password"})
            }

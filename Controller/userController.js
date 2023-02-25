@@ -52,6 +52,16 @@ export const forgotPassword = async(req,res) => {
 res.json(findUser)
 }
 
+export const getUser = async(req,res) => {
+    const {id} = req.body.Data
+    const findUser = await User.findById(id)
+    if(!findUser){
+        res.json({alert : "Please Login Again"})
+    }else{
+        res.json(findUser)
+    }
+}
+
 export const updateProfile = async(req,res) => {
     const {_id,name,image,mobile} = req.body.Data
     if(!_id){

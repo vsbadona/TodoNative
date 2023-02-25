@@ -104,6 +104,17 @@ export const addTodo = async(req,res) => {
    }
 }
 
+export const allTodo = async(req,res) => {
+    const {id} = req.body.Data
+    const findUser = await User.findById(id)
+    if (findUser) {
+     const todo = findUser.todo
+     res.json(todo)
+    } else {
+        res.json({ alert: "User Not Found" })
+    }
+}
+
 export const removeTodo = async(req,res) => {
     const {_id,id} = req.body.Data
     const findUser = await User.findById(id)

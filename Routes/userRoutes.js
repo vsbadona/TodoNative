@@ -1,5 +1,5 @@
 import express from "express"
-import { registerUser , loginUser,updateProfile , forgotPassword,addTodo, removeTodo, deleteUser} from "../Controller/userController.js";
+import { registerUser , loginUser,updateProfile,allTodo,forgotPassword,addTodo, removeTodo, deleteUser} from "../Controller/userController.js";
 
 const routes = express.Router();
 
@@ -8,6 +8,7 @@ routes.post('/login',loginUser)
 routes.patch('/update',updateProfile)
 routes.post('/user',forgotPassword)
 routes.post('/todo',addTodo)
+routes.post('/alltodo',allTodo)
 routes.post('/remove',removeTodo)
 routes.delete('/delete',deleteUser)
 
